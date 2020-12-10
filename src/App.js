@@ -1,9 +1,10 @@
 import './App.css'
+import CardCreationContainer from './containers/CardCreationContainer'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      Hi
+    <div className="App container py-5 my-5">
+      <CardCreationContainer />
     </div>
   )
 }
