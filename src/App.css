@@ -4,8 +4,46 @@
   box-sizing: border-box;
 }
 
-/* html,
-body {
-  height: 100%;
-  width: 100%;
-} */
+:root {
+  --dark-green: #009f27;
+  --light-green: #00b32c;
+  --dark-red: #d0000f;
+  --light-red: #e40010;
+}
+
+/* styling image upload form */
+.fileUploader > .fileContainer {
+  box-shadow: none;
+  border: none;
+}
+
+.fileContainer > button.chooseFileButton {
+  background-color: var(--dark-green);
+  font-weight: 500;
+}
+
+.fileContainer > button.chooseFileButton:hover {
+  background-color: var(--light-green);
+}
+
+.uploadPictureContainer > div.deleteImage {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  background-color: var(--light-red);
+}
+
+.uploadPictureContainer > div.deleteImage:hover {
+    background-color: var(--dark-red);
+}
+
+/* styling cards on main postcard creation page */
+.box-shadow-card {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.box-shadow-card-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+}

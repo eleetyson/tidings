@@ -9,8 +9,8 @@ const ImageUploadForm = props => {
   }
 
   return (
-    <div className="border border-dark">
-      <h4 className="d-flex justify-content-center">Upload an image</h4>
+    <div className="box-shadow-card py-2 px-3">
+      <p className="box-shadow-card-title">1. Upload an image</p>
       <ImageUploader
         {...props}
         onChange={onUpload}
