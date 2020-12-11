@@ -52,3 +52,11 @@ div.errorMessage {
   font-size: 1.2rem;
   font-weight: 500;
 }
+
+/* styling address autocomplete dropdown */
+.autocomplete-dropdown-container {
+  cursor: pointer;
+}
+
+.suggestion-item--active { background-color: #f5f5f5; }
+.suggestion-item { background-color: #ffffff; }

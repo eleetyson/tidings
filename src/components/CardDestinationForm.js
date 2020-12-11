@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-// import { useForm } from 'react-hook-form'
+import LocationSearchInput from './LocationSearchInput'
 
 export default function CardDestinationForm(props) {
-  // const { register, handleSubmit, errors, clearErrors } = useForm()
   const initialState = { senderName: '', recipientName: '', address: '' }
   const [values, setValues] = useState(initialState)
 
@@ -17,6 +16,13 @@ export default function CardDestinationForm(props) {
     event.preventDefault()
     console.log(values)
     setValues(initialState)
+  }
+
+  const handleCallback = addressStr => {
+    setValues({
+      ...values,
+      address: addressStr
+    })
   }
 
   return (
@@ -38,11 +44,7 @@ export default function CardDestinationForm(props) {
         />
         <br></br>
 
-        <input
-          name="address" type="text" placeholder="Recipient address" required
-          value={values.address}
-          onChange={handleChange}
-        />
+        <LocationSearchInput handleCallback={handleCallback} />
 
         <br></br><br></br>
         <input type="submit" />
