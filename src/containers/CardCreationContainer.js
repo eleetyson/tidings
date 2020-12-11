@@ -1,26 +1,24 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ImageUploadForm from '../components/ImageUploadForm'
 import CardDestinationForm from '../components/CardDestinationForm'
 import PaymentForm from '../components/PaymentForm'
+import { useForm } from "react-hook-form"
 
-class CardCreationContainer extends Component {
-  render() {
-    return (
-      <div className="row">
+export default function CardCreationContainer() {
 
-        <div className="col-sm">
-          <ImageUploadForm />
-        </div>
+  return (
+    <div className="row">
 
-        <div className="col-sm">
-          <CardDestinationForm />
-          <PaymentForm />
-        </div>
-
+      <div className="col-sm">
+        <ImageUploadForm />
       </div>
-    )
-  }
+
+      <div className="col-sm">
+        <CardDestinationForm/>
+        <PaymentForm />
+      </div>
+
+    </div>
+  )
 
 }
-
-export default CardCreationContainer

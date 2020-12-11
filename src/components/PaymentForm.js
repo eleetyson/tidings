@@ -1,11 +1,10 @@
+import React from 'react'
 
-const PaymentForm = () => {
+export default function PaymentForm() {
   return (
     <div className="border border-dark">
-      <h1>Send it</h1>
+      <h1>Send your postcard</h1>
     </div>
   )
 
 }
-
-export default PaymentForm

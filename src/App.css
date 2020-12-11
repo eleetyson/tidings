@@ -26,6 +26,11 @@
   background-color: var(--light-green);
 }
 
+div.errorMessage {
+  color: var(--dark-red);
+  font-weight: 500;
+}
+
 .uploadPictureContainer > div.deleteImage {
   width: 20px;
   height: 20px;
@@ -35,7 +40,7 @@
 }
 
 .uploadPictureContainer > div.deleteImage:hover {
-    background-color: var(--dark-red);
+  background-color: var(--dark-red);
 }
 
 /* styling cards on main postcard creation page */
