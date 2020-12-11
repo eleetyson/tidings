@@ -2,7 +2,6 @@ import React from 'react'
 import ImageUploadForm from '../components/ImageUploadForm'
 import CardDestinationForm from '../components/CardDestinationForm'
 import PaymentForm from '../components/PaymentForm'
-import { useForm } from "react-hook-form"
 
 export default function CardCreationContainer() {
 
