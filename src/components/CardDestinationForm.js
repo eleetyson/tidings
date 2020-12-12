@@ -1,10 +1,12 @@
+// form for user to specify postcard destination address and other related info
 import React, { useState } from 'react'
-import LocationSearchInput from './LocationSearchInput'
+import SearchInput from './SearchInput'
 
 export default function CardDestinationForm(props) {
   const initialState = { senderName: '', recipientName: '', address: '' }
   const [values, setValues] = useState(initialState)
 
+  // state hook for updating user's form inputs
   const handleChange = event => {
     setValues({
       ...values,
@@ -29,27 +31,28 @@ export default function CardDestinationForm(props) {
     <div className="box-shadow-card py-2 px-3">
       <p className="box-shadow-card-title">2. Specify a destination</p>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autoComplete="off" className="destination  d-flex flex-column justify-content-center align-items-center py-2">
         <input
-          name="senderName" type="text" placeholder="Your name" required
+          name="senderName" type="text" placeholder="Your name"
           value={values.senderName}
           onChange={handleChange}
+          required
         />
         <br></br>
 
         <input
-          name="recipientName" type="text" placeholder="Recipient name" required
+          name="recipientName" type="text" placeholder="Recipient name"
           value={values.recipientName}
           onChange={handleChange}
+          required
         />
         <br></br>
 
-        <LocationSearchInput handleCallback={handleCallback} />
+        <SearchInput handleCallback={handleCallback} />
 
         <br></br><br></br>
-        <input type="submit" />
+        <input type="submit" value="Check destination validity" />
       </form>
-
     </div>
   )
 

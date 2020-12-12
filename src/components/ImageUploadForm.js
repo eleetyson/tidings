@@ -1,9 +1,12 @@
+// a simple image upload component to handle user image selection
 import React, { useState } from 'react'
 import ImageUploader from 'react-images-upload'
 
 export default function ImageUploadForm(props) {
+  // declaring a state variable for user image
   const [picture, setPicture] = useState(null)
 
+  // using a state hook for user image upload
   const handleUpload = uploadedPicture => {
     setPicture(uploadedPicture)
   }
