@@ -3,9 +3,9 @@ import CardCreationContainer from './containers/CardCreationContainer'
 
 export default function App() {
   return (
-    <div className="App container py-5 my-5">
+    <div className="App container py-4 my-4">
       <CardCreationContainer />
     </div>
   )
-  
+
 }
