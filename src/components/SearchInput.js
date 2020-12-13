@@ -35,6 +35,7 @@ export default class SearchInput extends Component {
                 placeholder: 'Recipient address',
                 className: 'location-search-input',
               })}
+              required
             />
 
             <div className="autocomplete-dropdown-container">
