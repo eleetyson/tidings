@@ -14,17 +14,15 @@ export default function CardDestinationForm(props) {
     })
   }
 
+  // callback updating the address field
+  const handleCallback = addressStr => {
+    setValues({ ...values, address: addressStr })
+  }
+
   const handleSubmit = event => {
     event.preventDefault()
     console.log(values)
     setValues(initialState)
-  }
-
-  const handleCallback = addressStr => {
-    setValues({
-      ...values,
-      address: addressStr
-    })
   }
 
   return (
@@ -48,7 +46,7 @@ export default function CardDestinationForm(props) {
         />
         <br></br>
 
-        <SearchInput handleCallback={handleCallback} />
+        <SearchInput address={values.address} handleCallback={handleCallback} />
 
         <br></br><br></br>
         <input type="submit" value="Check destination validity" />
