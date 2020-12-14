@@ -11,11 +11,14 @@ export default class SearchInput extends Component {
   }
 
   // on dropdown selection, passing address selection up to parent via callback function
-  handleSelect = selectedAddress => {
-    geocodeByAddress(selectedAddress)
+  handleSelect = event => {
+    // update input field text before invoking callback
+    this.props.handleAddressInputChange(event)
+
+    geocodeByAddress(event)
       .then(results => getLatLng(results[0]))
       .then(result => {
-        this.props.handleAddressInputSelect(selectedAddress)
+        this.props.handleAddressInputSelect(event)
       })
       .catch(error => console.error('Error', error))
   }

@@ -30,23 +30,21 @@ export default function CardDestinationForm(props) {
   //
   const handleSubmit = event => {
     event.preventDefault()
-    console.log(values)
     // setValues(initialState) // clear out form after submission
 
     // const Lob = require('lob')('test_7628c7795f9a9a42c5ae4bbbbfdf7ab616e')
-    // on user submission, if( findZip() )
+    // on user submission, if (values.zip.length !== 0)
     // { create+send postcard w below info }
     // else throw an error message
 
 
-    // let addressArr = values.address1.split(',').map(a => a.trim())
-    // console.log(values.recipientName) // name
-    // console.log(addressArr[0]) // address_line1
-    // if (values.address2.length !== 0) { console.log(values.address2) } // address_line2?
-    // console.log(addressArr[1]) // address_city
-    // console.log(addressArr[2]) // address_state
-
-    // console.log(values.addressArr[0]) // address_zip -- need this from google autocomplete
+    let addressArr = values.address1.split(',').map(a => a.trim())
+    console.log(values.recipientName) // name
+    if ( Number.isInteger(parseFloat(addressArr[0])) ) { console.log(addressArr[0]) } // address_line1
+    if (values.address2.length !== 0) { console.log(values.address2) } // address_line2?
+    console.log(addressArr[1]) // address_city
+    console.log(addressArr[2]) // address_state
+    console.log(values.zip) // address_zip -- need this from google autocomplete
   }
 
   // state hook to update zip code
