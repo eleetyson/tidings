@@ -7,8 +7,9 @@ export default function ImageUploadForm(props) {
   const [picture, setPicture] = useState(null)
 
   // using a state hook for user image upload
-  const handleUpload = uploadedPicture => {
-    setPicture(uploadedPicture)
+  const handleUpload = event => {
+    setPicture(event)
+    props.findImgLocation()
   }
 
   return (
@@ -19,7 +20,7 @@ export default function ImageUploadForm(props) {
         onChange={handleUpload}
         label={null} withIcon={true} singleImage={true} withPreview={true}
         buttonText="Upload"
-        imgExtension={[".jpg", ".gif", ".png"]}
+        imgExtension={[".jpg", ".png"]}
       />
     </div>
   )
