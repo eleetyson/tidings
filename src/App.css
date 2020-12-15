@@ -61,6 +61,7 @@ form.destination input {
   border-radius: 5px;
   border-width: 1px;
   padding: 10px;
+  margin: 8px 0;
 }
 
 /* styling address autocomplete dropdown */

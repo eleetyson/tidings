@@ -35,7 +35,7 @@ export default class SearchInput extends Component {
           <div>
             <input
               {...getInputProps({
-                placeholder: 'Recipient address',
+                placeholder: 'Recipient address *',
                 className: 'location-search-input',
               })}
               autoComplete={'' + Math.random()}
