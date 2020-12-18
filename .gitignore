@@ -19,6 +19,7 @@
 .env.production.local
 
 NOTES.md
+.env
 
 npm-debug.log*
 yarn-debug.log*

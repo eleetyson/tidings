@@ -85,7 +85,7 @@ export default function CardCreationContainer() {
   // using destination address inputs to interact with the Lob API
   // addressee = { name, address_line1, address_line2, address_city, address_state, address_zip }
   const testOutLob = addressee => {
-    const Lob = require('lob')('test_7628c7795f9a9a42c5ae4bbbbfdf7ab616e')
+    const Lob = require('lob')(process.env.REACT_APP_LOB_TEST_SECRET_KEY)
 
     if ( addressee.address_zip.length !== 0 && Number.isInteger(parseFloat(addressee.address_line1)) ) {
       Lob.addresses.create(addressee, function(err, address) {
@@ -95,6 +95,18 @@ export default function CardCreationContainer() {
       console.log('invalid address')
     }
 
+
+    // Lob.postcards.create({
+    //   to: addressee,
+    //   front: tmpl_f92a8a1d43eef0e,
+    //   back: ,
+    //   merge_variables: {
+    //     name: values.senderName,
+    //     img:
+    //   }
+    // }, function(err, postcard) {
+    //     console.log(err, postcard)
+    // })
 
     // setValues(initialState) // clear out form after submission
   }
