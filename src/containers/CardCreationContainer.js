@@ -15,18 +15,52 @@ export default function CardCreationContainer() {
   // callback function to update state variable holding user image
   const handleUpload = event => {
     setPicture(event)
-    findImgLocation()
+
+    // only want to do this on image upload, not image removal
+    addUploadedImageLocation()
   }
 
-  // will eventually need to grab this image file's URL
-  const findImgLocation = imgLocation => {
+  // if available, grabbing the user's uploaded image file URL
+    // will need to resize the img to fit Lob's postcard specs
+    // maybe use this React component: https://www.npmjs.com/package/react-image-file-resizer
+  const findImgLocation = () => {
     if (document.querySelector(".uploadPicture")) {
       const location = document.querySelector(".uploadPicture").getAttribute("src")
-      console.log(location)
-
-      // will need to resize the img to fit Lob's postcard specs
-      // maybe use this React component: https://www.npmjs.com/package/react-image-file-resizer
+      return location
+    } else {
+      return null
     }
+  }
+
+// storing the user-uploaded image using Cloudinary and updating...
+  const addUploadedImageLocation = () => {
+    const imgLocation = findImgLocation()
+    debugger
+    // if (imgLocation) {
+    //   const configObj = {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Accept': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //       file: `${imgLocation}`,
+    //       'upload_preset': 'tidings'
+    //     })
+    //     // body: {
+    //     //   file: imgLocation,
+    //     //   upload_preset: 'tidings'
+    //     // }
+    //   }
+    //
+    //   fetch('https://cors-anywhere.herokuapp.com/https://api.Cloudinary.com/v1_1/df7waillu/image/upload', configObj)
+    //     .then(res => res.json())
+    //     .then(res => console.log(res))
+    //     .catch(err => console.log(err))
+    // } else {
+    //   console.log("can't find any user-uploaded image :(")
+    // }
+
   }
 
   // state hook for updating user's destination form inputs
@@ -86,23 +120,44 @@ export default function CardCreationContainer() {
   // addressee = { name, address_line1, address_line2, address_city, address_state, address_zip }
   const testOutLob = addressee => {
     const Lob = require('lob')(process.env.REACT_APP_LOB_TEST_SECRET_KEY)
+    const postcardBack = findImgLocation()
 
-    if ( addressee.address_zip.length !== 0 && Number.isInteger(parseFloat(addressee.address_line1)) ) {
-      Lob.addresses.create(addressee, function(err, address) {
-        console.log(err, address)
-      })
+    // if (addressee.address_zip.length !== 0 && Number.isInteger(parseFloat(addressee.address_line1)) && postcardBack) {
+    //   Lob.addresses.create(addressee, function(err, address) {
+    //     console.log(err, address)
+    //   })
+    // } else {
+    //   console.log('invalid address')
+    // }
+
+    if (!postcardBack) {
+      console.log("It appears you've uploaded an invalid image. Please try again.")
+    } else if ( addressee.address_zip.length === 0 && !Number.isInteger(parseFloat(addressee.address_line1)) ) {
+      console.log("It appears you've entered an invalid destination address. Please try again.")
     } else {
-      console.log('invalid address')
+      debugger
+      // Lob.postcards.create({
+      //   to: addressee,
+      //   front: 'tmpl_fed93452925c5bf',
+      //   back: 'tmpl_f92a8a1d43eef0e',
+      //   merge_variables: {
+      //     name: values.senderName,
+      //     img: postcardBack
+      //   }
+      // }, function(err, postcard) {
+      //     err ? console.log(err) : console.log(postcard)
+      // })
+
     }
 
 
     // Lob.postcards.create({
     //   to: addressee,
     //   front: tmpl_f92a8a1d43eef0e,
-    //   back: ,
+    //   back: tmpl_fed93452925c5bf,
     //   merge_variables: {
     //     name: values.senderName,
-    //     img:
+    //     img: postcardBack
     //   }
     // }, function(err, postcard) {
     //     console.log(err, postcard)
@@ -113,6 +168,7 @@ export default function CardCreationContainer() {
 
   return (
     <div className="container  d-flex flex-column justify-content-center align-items-center  col-8 offset-2">
+
       <ImageUploadForm
         handleUpload={handleUpload}
       />
