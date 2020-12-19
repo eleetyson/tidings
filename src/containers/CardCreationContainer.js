@@ -35,31 +35,27 @@ export default function CardCreationContainer() {
 // storing the user-uploaded image using Cloudinary and updating...
   const addUploadedImageLocation = () => {
     const imgLocation = findImgLocation()
-    debugger
-    // if (imgLocation) {
-    //   const configObj = {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Accept': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //       file: `${imgLocation}`,
-    //       'upload_preset': 'tidings'
-    //     })
-    //     // body: {
-    //     //   file: imgLocation,
-    //     //   upload_preset: 'tidings'
-    //     // }
-    //   }
-    //
-    //   fetch('https://cors-anywhere.herokuapp.com/https://api.Cloudinary.com/v1_1/df7waillu/image/upload', configObj)
-    //     .then(res => res.json())
-    //     .then(res => console.log(res))
-    //     .catch(err => console.log(err))
-    // } else {
-    //   console.log("can't find any user-uploaded image :(")
-    // }
+
+    if (imgLocation) {
+      const configObj = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          file: encodeURI(imgLocation),
+          'upload_preset': 'tidings'
+        })
+      }
+
+      fetch('https://cors-anywhere.herokuapp.com/https://api.Cloudinary.com/v1_1/df7waillu/image/upload', configObj)
+        .then(res => res.json())
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    } else {
+      console.log("can't find any user-uploaded image :(")
+    }
 
   }
 
