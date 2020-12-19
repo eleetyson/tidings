@@ -10,19 +10,25 @@ export default function CardCreationContainer() {
   // declaring state variables for card destination details
   const initialState = { senderName: '', recipientName: '', address1: '', address2: '', zip: '' }
   const [values, setValues] = useState(initialState)
-  const [picture, setPicture] = useState(null) // state variable for user image
+  const [picture, setPicture] = useState(null) // state variable for user-uploaded image in browser
+  // const [remotePicture, setRemotePicture] = useState(null) // state variable for user-uploaded image location in cloud storage
 
   // callback function to update state variable holding user image
   const handleUpload = event => {
     setPicture(event)
 
-    // only want to do this on image upload, not image removal
-    addUploadedImageLocation()
+    // only need to store image on user upload, not removal
+    if (event.length !== 0) {
+      addImgToCloud()
+    }
+
+    // else {
+    //   // clear out state for image location in cloud
+    //   // setRemotePicture(null)
+    // }
   }
 
-  // if available, grabbing the user's uploaded image file URL
-    // will need to resize the img to fit Lob's postcard specs
-    // maybe use this React component: https://www.npmjs.com/package/react-image-file-resizer
+  // if available, grabbing the data URI for user's uploaded image file
   const findImgLocation = () => {
     if (document.querySelector(".uploadPicture")) {
       const location = document.querySelector(".uploadPicture").getAttribute("src")
@@ -32,12 +38,16 @@ export default function CardCreationContainer() {
     }
   }
 
-// storing the user-uploaded image using Cloudinary and updating...
-  const addUploadedImageLocation = () => {
+  // storing user's uploaded image using Cloudinary and updating state with its new URL
+  const addImgToCloud = () => {
     const imgLocation = findImgLocation()
 
     if (imgLocation) {
-      const encodedImgLocation = encodeURIComponent(imgLocation)
+      const payload = {
+        // formatting data URL properly before making request
+        file: `${imgLocation.split(';').filter(str => !str.includes("name=") ).join(';')}`,
+        upload_preset: 'tidings'
+      }
 
       const configObj = {
         method: 'POST',
@@ -45,15 +55,16 @@ export default function CardCreationContainer() {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: JSON.stringify({
-          'file': `${encodedImgLocation}`,
-          'upload_preset': 'tidings'
-        })
+        body: JSON.stringify(payload)
       }
 
       fetch('https://cors-anywhere.herokuapp.com/https://api.Cloudinary.com/v1_1/df7waillu/image/upload', configObj)
         .then(res => res.json())
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res)
+            // updating state for image location in cloud storage with URL string from response
+            // setRemotePicture(res.secure_url)
+          })
         .catch(err => console.log(err))
     } else {
       console.log("can't find any user-uploaded image :(")
@@ -128,6 +139,7 @@ export default function CardCreationContainer() {
     //   console.log('invalid address')
     // }
 
+    // if (!postcardBack || !remotePicture) {
     if (!postcardBack) {
       console.log("It appears you've uploaded an invalid image. Please try again.")
     } else if ( addressee.address_zip.length === 0 && !Number.isInteger(parseFloat(addressee.address_line1)) ) {
