@@ -37,6 +37,8 @@ export default function CardCreationContainer() {
     const imgLocation = findImgLocation()
 
     if (imgLocation) {
+      const encodedImgLocation = encodeURIComponent(imgLocation)
+
       const configObj = {
         method: 'POST',
         headers: {
@@ -44,7 +46,7 @@ export default function CardCreationContainer() {
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          file: encodeURI(imgLocation),
+          'file': `${encodedImgLocation}`,
           'upload_preset': 'tidings'
         })
       }
