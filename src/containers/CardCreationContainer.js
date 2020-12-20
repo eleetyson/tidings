@@ -11,7 +11,7 @@ export default function CardCreationContainer() {
   const initialState = { senderName: '', recipientName: '', address1: '', address2: '', zip: '' }
   const [values, setValues] = useState(initialState)
   const [picture, setPicture] = useState(null) // state variable for user-uploaded image in browser
-  // const [remotePicture, setRemotePicture] = useState(null) // state variable for user-uploaded image location in cloud storage
+  const [remotePicture, setRemotePicture] = useState(null) // state variable for user-uploaded image location in cloud storage
 
   // callback function to update state variable holding user image
   const handleUpload = event => {
@@ -20,12 +20,11 @@ export default function CardCreationContainer() {
     // only need to store image on user upload, not removal
     if (event.length !== 0) {
       addImgToCloud()
+      console.log("in handleUpload() after adding image to cloudinary")
+    } else {
+      setRemotePicture(null)
+      console.log("in handleUpload() after resetting remotePicture in state")
     }
-
-    // else {
-    //   // clear out state for image location in cloud
-    //   // setRemotePicture(null)
-    // }
   }
 
   // if available, grabbing the data URI for user's uploaded image file
@@ -61,9 +60,8 @@ export default function CardCreationContainer() {
       fetch('https://cors-anywhere.herokuapp.com/https://api.Cloudinary.com/v1_1/df7waillu/image/upload', configObj)
         .then(res => res.json())
         .then(res => {
-            console.log(res)
             // updating state for image location in cloud storage with URL string from response
-            // setRemotePicture(res.secure_url)
+            setRemotePicture(res.secure_url)
           })
         .catch(err => console.log(err))
     } else {
@@ -115,65 +113,40 @@ export default function CardCreationContainer() {
       address_state: addressArr[2],
       address_zip: values.zip
     }
-    testOutLob(addressee)
 
-    // console.log(values.recipientName) // name
-    // if ( Number.isInteger(parseFloat(addressArr[0])) ) { console.log(addressArr[0]) } // address_line1
-    // if (values.address2.length !== 0) { console.log(values.address2) } // address_line2?
-    // console.log(addressArr[1]) // address_city
-    // console.log(addressArr[2]) // address_state
-    // console.log(values.zip) // address_zip -- need this from google autocomplete
+    testOutLob(addressee)
   }
 
   // using destination address inputs to interact with the Lob API
   // addressee = { name, address_line1, address_line2, address_city, address_state, address_zip }
   const testOutLob = addressee => {
     const Lob = require('lob')(process.env.REACT_APP_LOB_TEST_SECRET_KEY)
-    const postcardBack = findImgLocation()
 
-    // if (addressee.address_zip.length !== 0 && Number.isInteger(parseFloat(addressee.address_line1)) && postcardBack) {
-    //   Lob.addresses.create(addressee, function(err, address) {
-    //     console.log(err, address)
-    //   })
-    // } else {
-    //   console.log('invalid address')
-    // }
-
-    // if (!postcardBack || !remotePicture) {
-    if (!postcardBack) {
+    if (!remotePicture) {
       console.log("It appears you've uploaded an invalid image. Please try again.")
     } else if ( addressee.address_zip.length === 0 && !Number.isInteger(parseFloat(addressee.address_line1)) ) {
       console.log("It appears you've entered an invalid destination address. Please try again.")
     } else {
-      debugger
-      // Lob.postcards.create({
-      //   to: addressee,
-      //   front: 'tmpl_fed93452925c5bf',
-      //   back: 'tmpl_f92a8a1d43eef0e',
-      //   merge_variables: {
-      //     name: values.senderName,
-      //     img: postcardBack
-      //   }
-      // }, function(err, postcard) {
-      //     err ? console.log(err) : console.log(postcard)
-      // })
+      Lob.postcards.create({
+        to: addressee,
+        front: 'tmpl_fed93452925c5bf',
+        back: 'tmpl_f92a8a1d43eef0e',
+        merge_variables: {
+          name: values.senderName,
+          img: remotePicture
+        }
+      }, function(err, postcard) {
+          err ? console.log(err) : console.log(postcard)
+      })
 
     }
 
+    // clear out state after form submission
+    // setValues(initialState)
+    // setPicture(null)
+    // setRemotePicture(null)
 
-    // Lob.postcards.create({
-    //   to: addressee,
-    //   front: tmpl_f92a8a1d43eef0e,
-    //   back: tmpl_fed93452925c5bf,
-    //   merge_variables: {
-    //     name: values.senderName,
-    //     img: postcardBack
-    //   }
-    // }, function(err, postcard) {
-    //     console.log(err, postcard)
-    // })
-
-    // setValues(initialState) // clear out form after submission
+    // also will want to display some sort of confirmation + maybe SMS message?
   }
 
   return (
