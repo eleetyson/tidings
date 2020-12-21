@@ -8,8 +8,8 @@ import PaymentForm from '../components/PaymentForm'
 export default function CardCreationContainer() {
 
   // declaring state variables for card destination details
-  const initialState = { senderName: '', recipientName: '', address1: '', address2: '', zip: '' }
-  const [values, setValues] = useState(initialState)
+  const initialValues = { senderName: '', recipientName: '', address1: '', address2: '', zip: '' }
+  const [values, setValues] = useState(initialValues)
   const [picture, setPicture] = useState(null) // state variable for user-uploaded image in browser
   const [remotePicture, setRemotePicture] = useState(null) // state variable for user-uploaded image location in cloud storage
 
@@ -20,10 +20,10 @@ export default function CardCreationContainer() {
     // only need to store image on user upload, not removal
     if (event.length !== 0) {
       addImgToCloud()
-      console.log("in handleUpload() after adding image to cloudinary")
+      // console.log("in handleUpload() after adding image to cloudinary")
     } else {
       setRemotePicture(null)
-      console.log("in handleUpload() after resetting remotePicture in state")
+      // console.log("in handleUpload() after resetting remotePicture in state")
     }
   }
 
@@ -100,7 +100,7 @@ export default function CardCreationContainer() {
       .catch(error => console.error('Error', error))
   }
 
-  //
+  // tbd
   const handleSubmit = event => {
     event.preventDefault()
 
@@ -117,7 +117,7 @@ export default function CardCreationContainer() {
     testOutLob(addressee)
   }
 
-  // using destination address inputs to interact with the Lob API
+  // using destination address inputs to create postcard with Lob API
   // addressee = { name, address_line1, address_line2, address_city, address_state, address_zip }
   const testOutLob = addressee => {
     const Lob = require('lob')(process.env.REACT_APP_LOB_TEST_SECRET_KEY)
@@ -142,7 +142,7 @@ export default function CardCreationContainer() {
     }
 
     // clear out state after form submission
-    // setValues(initialState)
+    // setValues(initialValues)
     // setPicture(null)
     // setRemotePicture(null)
 
