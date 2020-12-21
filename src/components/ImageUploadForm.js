@@ -5,7 +5,7 @@ import ImageUploader from 'react-images-upload'
 export default function ImageUploadForm(props) {
 
   return (
-    <div className="box-shadow-card py-2 px-3">
+    <div className="box-shadow-card  py-2 px-3">
       <p className="box-shadow-card-title">1. Upload an image</p>
 
       <ImageUploader

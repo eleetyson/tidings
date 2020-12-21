@@ -56,7 +56,7 @@ div.errorMessage {
 
 /* styling postcard destination form */
 form.destination input {
-  width: 30rem;
+  width: 35rem;
   height: 2.5rem;
   border-radius: 5px;
   border-width: 1px;
@@ -85,4 +85,33 @@ div.dropdown > span::before {
 .suggestion-item {
   padding-left: 6px;
   height: 2.5rem;
+}
+
+/* styling payment form */
+div.StripeElement {
+  padding-top: 1.5rem;
+}
+
+button.paymentBtn,
+button.paymentBtn:hover {
+  cursor: pointer;
+  height: 2.8rem;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 2rem 0 1rem;
+}
+
+button.paymentBtn {
+  background-color: var(--dark-green);
+}
+
+button.paymentBtn:hover {
+  background-color: var(--light-green);
+}
+
+button.paymentBtn:disabled,
+button.paymentBtn:hover:disabled {
+  cursor: auto;
+  background-color: var(--dark-green);
+  opacity: .4;
 }
