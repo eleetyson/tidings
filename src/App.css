@@ -11,6 +11,11 @@
   --light-red: #e40010;
 }
 
+body {
+  background: url(stripe.svg) 0 0 no-repeat;
+  background-size: 100% 6px;
+}
+
 /* styling image upload form */
 .fileUploader > .fileContainer {
   box-shadow: none;

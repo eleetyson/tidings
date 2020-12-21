@@ -1,14 +1,28 @@
 import React from 'react'
-import { CardElement, useElements } from '@stripe/react-stripe-js'
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 
 export default function CreditCardInput(props) {
   const elements = useElements()
+  const stripe = useStripe()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     const cardElement = elements.getElement(CardElement)
 
-    debugger
+    // use card element with other Stripe.js APIs
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: cardElement,
+    })
+
+    // console logging result
+    error ? console.log('[error]', error) : console.log('[PaymentMethod]', paymentMethod)
+
+    // if (error) {
+    //   console.log('[error]', error)
+    // } else {
+    //   console.log('[PaymentMethod]', paymentMethod)
+    // }
   }
 
   return (
