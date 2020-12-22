@@ -1,5 +1,5 @@
 // main page for postcard image upload, destination setting, and checkout page redirect
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { geocodeByAddress } from 'react-places-autocomplete'
 import { loadStripe } from '@stripe/stripe-js'
 import ImageUploadForm from '../components/ImageUploadForm'
@@ -15,19 +15,36 @@ export default function CardCreationContainer() {
   const [values, setValues] = useState(initialValues)
   const [picture, setPicture] = useState(null) // state variable for user-uploaded image in browser
   const [remotePicture, setRemotePicture] = useState(null) // state variable for user-uploaded image location in cloud storage
+  const [checkoutDisabled, setCheckoutDisabled] = useState(null) // state variable for whether to disabled checkout button
+
+  // effect hook for toggling checkout button access based on form completion
+  // runs after every render (unlike lifecycle methods, doesn't require separate method for unmounting)
+  useEffect(() => {
+    // only want to enable checkout w successful image upload and address input
+    // need to determine when to ping Lob API with address
+    // will also need a separate state value for remoteAddress
+    remotePicture ? setCheckoutDisabled(false) : setCheckoutDisabled(true)
+
+    // if ( remotePicture ) {
+    //   setCheckoutAllowed(true)
+    // } else {
+    //   setCheckoutAllowed(false)
+    // }
+
+  }, [remotePicture, values])
 
   // callback function to update state variable holding user image
   const handleUpload = event => {
     setPicture(event)
 
-    // only need to store image on user upload, not removal
-    if (event.length !== 0) {
-      addImgToCloud()
-      // console.log("in handleUpload() after adding image to cloudinary")
-    } else {
-      setRemotePicture(null)
-      // console.log("in handleUpload() after resetting remotePicture in state")
-    }
+    // only need to store image on user image upload, not removal
+    event.length !== 0 ? addImgToCloud() : setRemotePicture(null)
+
+    // if (event.length !== 0) {
+    //   addImgToCloud()
+    // } else {
+    //   setRemotePicture(null)
+    // }
   }
 
   // if available, grabbing the data URI for user's uploaded image file
@@ -206,6 +223,7 @@ export default function CardCreationContainer() {
 
       <CheckoutCard
         handleCheckout={handleCheckout}
+        checkoutDisabled={checkoutDisabled}
       />
       <br></br>
 

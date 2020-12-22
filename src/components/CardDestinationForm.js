@@ -8,7 +8,6 @@ export default function CardDestinationForm(props) {
       <p className="box-shadow-card-title">2. Specify a destination</p>
 
       <form onSubmit={props.handleSubmit} className="destination  d-flex flex-column justify-content-center align-items-center py-2">
-
         <input
           name="senderName" type="text" placeholder="Your full name *"
           value={props.senderName}
