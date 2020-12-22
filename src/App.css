@@ -92,18 +92,14 @@ div.dropdown > span::before {
   height: 2.5rem;
 }
 
-/* styling payment form */
-div.StripeElement {
-  padding-top: 1.5rem;
-}
-
+/* styling checkout button form */
 button.paymentBtn,
 button.paymentBtn:hover {
   cursor: pointer;
   height: 2.5rem;
   font-size: 18px;
   font-weight: 500;
-  margin: 2rem 0 1rem;
+  margin: 1rem 0;
 }
 
 button.paymentBtn {
@@ -119,6 +115,7 @@ button.paymentBtn:hover:disabled {
   cursor: auto;
   background-color: var(--dark-green);
   opacity: .4;
+  transform: none;
 
 }
 
@@ -145,7 +142,16 @@ button.paymentBtn:hover:disabled {
   transition-timing-function: ease-out;
 }
 
-.hvr-icon-forward:hover .hvr-icon, .hvr-icon-forward:focus .hvr-icon, .hvr-icon-forward:active .hvr-icon {
+.hvr-icon-forward:hover .hvr-icon,
+.hvr-icon-forward:focus .hvr-icon,
+.hvr-icon-forward:active .hvr-icon {
   -webkit-transform: translateX(4px);
   transform: translateX(4px);
+}
+
+.hvr-icon-forward:hover:disabled .hvr-icon,
+.hvr-icon-forward:focus:disabled .hvr-icon,
+.hvr-icon-forward:active:disabled .hvr-icon {
+  -webkit-transform: none;
+  transform: none;
 }

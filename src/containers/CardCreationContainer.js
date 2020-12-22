@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { geocodeByAddress } from 'react-places-autocomplete'
 import ImageUploadForm from '../components/ImageUploadForm'
 import CardDestinationForm from '../components/CardDestinationForm'
-import PaymentForm from '../components/PaymentForm'
+import CheckoutCard from '../components/CheckoutCard'
 
 export default function CardCreationContainer() {
 
@@ -169,7 +169,7 @@ export default function CardCreationContainer() {
       />
       <br></br>
 
-      <PaymentForm
+      <CheckoutCard
 
       />
       <br></br>
