@@ -1,46 +1,51 @@
 import React from 'react'
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
+// import { CardElement, useElements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_LIVE_KEY)
 
 export default function CreditCardInput(props) {
-  const elements = useElements()
-  const stripe = useStripe()
+  // const elements = useElements()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const cardElement = elements.getElement(CardElement)
+    const stripe = await stripePromise
 
-    // use card element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
+    const { error } = await stripe.redirectToCheckout({
+      lineItems: [{
+        price: 'price_1I0cm0BrGXf3SoO6zIFh9jvE',
+        quantity: 1,
+      }],
+      mode: 'payment',
+      successUrl: 'http://localhost:3000', // https://example.com/success
+      cancelUrl: 'http://localhost:3000',  // https://example.com/cancel
     })
 
-    // console logging result
-    error ? console.log('[error]', error) : console.log('[PaymentMethod]', paymentMethod)
-
-    // if (error) {
-    //   console.log('[error]', error)
-    // } else {
-    //   console.log('[PaymentMethod]', paymentMethod)
-    // }
+    // const cardElement = elements.getElement(CardElement)
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: { fontSize: '16px', color: '#424770' },
-            invalid: { color: '#9e2146' }
-          }
-        }}
-      >
-      </CardElement>
-
       <button className="paymentBtn  btn btn-lg btn-block btn-success  border-0" type="submit" disabled={false}>
-        Pay $1
+        Checkout
       </button>
     </form>
   )
 
 }
+
+// <form onSubmit={handleSubmit}>
+//   <CardElement
+//     options={{
+//       style: {
+//         base: { fontSize: '16px', color: '#424770' },
+//         invalid: { color: '#9e2146' }
+//       }
+//     }}
+//   >
+//   </CardElement>
+//
+//   <button className="paymentBtn  btn btn-lg btn-block btn-success  border-0" type="submit" disabled={false}>
+//     Checkout
+//   </button>
+// </form>

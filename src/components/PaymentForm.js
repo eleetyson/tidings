@@ -21,27 +21,12 @@ export default function PaymentForm() {
       <Elements stripe={stripePromise}>
         <CreditCardInput />
       </Elements>
-    
+
     </div>
   )
 
 }
 
-
-// <form onSubmit={handleSubmit}>
-//
-//   <CardElement
-//     options={{
-//       style: {
-//         base: { fontSize: '16px', color: '#424770' },
-//         invalid: { color: '#9e2146' }
-//       }
-//     }}
-//   >
-//   </CardElement>
-//
-//   <button className="paymentBtn  btn btn-lg btn-block btn-success  border-0" type="submit" disabled={false}>
-//     Pay $1
-//   </button>
-//
-// </form>
+// <Elements stripe={stripePromise}>
+//   <CreditCardInput />
+// </Elements>
