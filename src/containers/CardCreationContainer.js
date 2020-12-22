@@ -154,6 +154,7 @@ export default function CardCreationContainer() {
 
   // handling redirect to Stripe-hosted checkout page
   const handleCheckout = async (event) => {
+    event.preventDefault()
     const stripe = await stripePromise
 
     const { error } = await stripe.redirectToCheckout({
@@ -165,6 +166,21 @@ export default function CardCreationContainer() {
       successUrl: 'https://tidings-app.netlify.app', // https://example.com/success https://tidings-app.netlify.app
       cancelUrl: 'https://tidings-app.netlify.app',  // https://example.com/cancel https://tidings-app.netlify.app
     })
+
+    // add css arrow to checkout button hover [X]
+    // remove unneeded Stripe elements from container component? [X]
+
+    // only want to enable checkout button with uploaded image and form filled []
+    // move logic back into container component []
+      // useEffect to check whether steps 1 and 2 complete
+        // should attempt to add address on step 2 completion
+      // want a function passing down a boolean as a prop to this CheckoutCard component
+        // if state contains a remote picture address in Cloudinary and a valid address created with Lob, return true
+        // else return false, button remains disabled
+      //
+
+    // build out separate success page? []
+    // add some type of alert or popup for error message on main page []
 
   }
 
