@@ -1,9 +1,12 @@
-// main page for postcard image upload, destination setting, and payment
+// main page for postcard image upload, destination setting, and checkout page redirect
 import React, { useState } from 'react'
 import { geocodeByAddress } from 'react-places-autocomplete'
+import { loadStripe } from '@stripe/stripe-js'
 import ImageUploadForm from '../components/ImageUploadForm'
 import CardDestinationForm from '../components/CardDestinationForm'
 import CheckoutCard from '../components/CheckoutCard'
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_LIVE_KEY) // Stripe object from the stripe-js module
 
 export default function CardCreationContainer() {
 
@@ -149,6 +152,22 @@ export default function CardCreationContainer() {
     // also will want to display some sort of confirmation + maybe SMS message?
   }
 
+  // handling redirect to Stripe-hosted checkout page
+  const handleCheckout = async (event) => {
+    const stripe = await stripePromise
+
+    const { error } = await stripe.redirectToCheckout({
+      lineItems: [{
+        price: 'price_1I0cm0BrGXf3SoO6zIFh9jvE',
+        quantity: 1,
+      }],
+      mode: 'payment',
+      successUrl: 'https://tidings-app.netlify.app', // https://example.com/success https://tidings-app.netlify.app
+      cancelUrl: 'https://tidings-app.netlify.app',  // https://example.com/cancel https://tidings-app.netlify.app
+    })
+
+  }
+
   return (
     <div className="container  d-flex flex-column justify-content-center align-items-center  col-8 offset-2">
 
@@ -170,7 +189,7 @@ export default function CardCreationContainer() {
       <br></br>
 
       <CheckoutCard
-
+        handleCheckout={handleCheckout}
       />
       <br></br>
 
