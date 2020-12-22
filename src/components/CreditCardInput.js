@@ -1,11 +1,9 @@
 import React from 'react'
-// import { CardElement, useElements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_LIVE_KEY)
 
 export default function CreditCardInput(props) {
-  // const elements = useElements()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -17,11 +15,18 @@ export default function CreditCardInput(props) {
         quantity: 1,
       }],
       mode: 'payment',
-      successUrl: 'http://localhost:3000', // https://example.com/success
-      cancelUrl: 'http://localhost:3000',  // https://example.com/cancel
+      successUrl: 'https://tidings-app.netlify.app', // https://example.com/success https://tidings-app.netlify.app
+      cancelUrl: 'https://tidings-app.netlify.app',  // https://example.com/cancel https://tidings-app.netlify.app
     })
 
-    // const cardElement = elements.getElement(CardElement)
+    // change stripe account name
+
+    // only want to enable checkout button with uploaded image and form filled
+    // add css arrow to checkout button
+
+    // build out success page
+    // move logic back into container component
+    // remove unneeded Stripe elements from container component?
   }
 
   return (
