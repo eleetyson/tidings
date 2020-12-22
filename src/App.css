@@ -100,8 +100,8 @@ div.StripeElement {
 button.paymentBtn,
 button.paymentBtn:hover {
   cursor: pointer;
-  height: 2.8rem;
-  font-size: 20px;
+  height: 2.5rem;
+  font-size: 18px;
   font-weight: 500;
   margin: 2rem 0 1rem;
 }
@@ -119,4 +119,33 @@ button.paymentBtn:hover:disabled {
   cursor: auto;
   background-color: var(--dark-green);
   opacity: .4;
+
+}
+
+/* checkout button icon and hover animation */
+.hvr-icon-forward {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+}
+
+.hvr-icon-forward .hvr-icon {
+  margin-left: 8px;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.hvr-icon-forward:hover .hvr-icon, .hvr-icon-forward:focus .hvr-icon, .hvr-icon-forward:active .hvr-icon {
+  -webkit-transform: translateX(4px);
+  transform: translateX(4px);
 }

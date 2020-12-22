@@ -3,7 +3,7 @@ import { loadStripe } from '@stripe/stripe-js'
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_LIVE_KEY)
 
-export default function CreditCardInput(props) {
+export default function Checkout(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -19,10 +19,8 @@ export default function CreditCardInput(props) {
       cancelUrl: 'https://tidings-app.netlify.app',  // https://example.com/cancel https://tidings-app.netlify.app
     })
 
-    // change stripe account name
-
     // only want to enable checkout button with uploaded image and form filled
-    // add css arrow to checkout button
+    // add css arrow to checkout button hover
 
     // build out success page
     // move logic back into container component
@@ -31,13 +29,16 @@ export default function CreditCardInput(props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <button className="paymentBtn  btn btn-lg btn-block btn-success  border-0" type="submit" disabled={false}>
+      <button className="paymentBtn hvr-icon-forward  btn btn-lg btn-block btn-success  border-0" type="submit" disabled={false}>
         Checkout
+        <i class="fa fa-arrow-circle-right  hvr-icon "></i>
       </button>
     </form>
   )
 
 }
+
+// <i class="fa fa-chevron-circle-right hvr-icon"></i>
 
 // <form onSubmit={handleSubmit}>
 //   <CardElement
