@@ -23,6 +23,7 @@ export default function CardCreationContainer() {
     // only want to enable checkout w successful image upload and address input
     // need to determine when to ping Lob API with address
     // will also need a separate state value for remoteAddress
+    // remotePicture && remoteAddress ? setCheckoutDisabled(false) : setCheckoutDisabled(true)
     remotePicture ? setCheckoutDisabled(false) : setCheckoutDisabled(true)
 
     // if ( remotePicture ) {
@@ -45,16 +46,6 @@ export default function CardCreationContainer() {
     // } else {
     //   setRemotePicture(null)
     // }
-  }
-
-  // if available, grabbing the data URI for user's uploaded image file
-  const findImgLocation = () => {
-    if (document.querySelector(".uploadPicture")) {
-      const location = document.querySelector(".uploadPicture").getAttribute("src")
-      return location
-    } else {
-      return null
-    }
   }
 
   // storing user's uploaded image using Cloudinary and updating state with its new URL
@@ -88,6 +79,16 @@ export default function CardCreationContainer() {
       console.log("can't find any user-uploaded image :(")
     }
 
+  }
+
+  // if available, grabbing the data URI for user's uploaded image file
+  const findImgLocation = () => {
+    if (document.querySelector(".uploadPicture")) {
+      const location = document.querySelector(".uploadPicture").getAttribute("src")
+      return location
+    } else {
+      return null
+    }
   }
 
   // state hook for updating user's destination form inputs
@@ -187,9 +188,9 @@ export default function CardCreationContainer() {
     // add css arrow to checkout button hover [X]
     // remove unneeded Stripe elements from container component? [X]
 
-    // only want to enable checkout button with uploaded image and form filled []
-    // move logic back into container component []
-      // useEffect to check whether steps 1 and 2 complete
+    // move logic back into container component [X]
+    // only want to enable checkout button with uploaded image and form complete []
+      // useEffect to check whether there's a remotePicture and remoteAddress
         // should attempt to add address on step 2 completion
       // want a function passing down a boolean as a prop to this CheckoutCard component
         // if state contains a remote picture address in Cloudinary and a valid address created with Lob, return true

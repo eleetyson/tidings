@@ -9,6 +9,7 @@
   --light-green: #00b32c;
   --dark-red: #d0000f;
   --light-red: #e40010;
+  --gradient-grey: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }
 
 body {
@@ -20,6 +21,7 @@ body {
 .fileUploader > .fileContainer {
   box-shadow: none;
   border: none;
+  background-image: var(--gradient-grey);
 }
 
 .fileContainer > button.chooseFileButton {
@@ -52,6 +54,7 @@ div.errorMessage {
 .box-shadow-card {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   width: 40rem;
+  background-image: var(--gradient-grey);
 }
 
 .box-shadow-card-title {
