@@ -6,44 +6,36 @@ import ImageUploadForm from '../components/ImageUploadForm'
 import CardDestinationForm from '../components/CardDestinationForm'
 import CheckoutCard from '../components/CheckoutCard'
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_LIVE_KEY) // Stripe object
 const Lob = require('lob')(process.env.REACT_APP_LOB_TEST_SECRET_KEY) // Lob object
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_LIVE_KEY) // Stripe object
 
 export default function CardCreationContainer() {
 
   // declaring state variables for card destination details
   const initialValues = { senderName: '', recipientName: '', address1: '', address2: '', zip: '' }
   const [values, setValues] = useState(initialValues)
-  const [remoteAddress, setRemoteAddress] = useState(null) // state variable for Lob address corresponding to user destination form inputs
+  const [remoteAddress, setRemoteAddress] = useState(null) // state variable for Lob-created address
   const [picture, setPicture] = useState(null) // state variable for user-uploaded image in browser
-  const [remotePicture, setRemotePicture] = useState(null) // state variable for user-uploaded image location in cloud storage
+  const [remotePicture, setRemotePicture] = useState(null) // state variable for Cloudinary-hosted image location
   const [checkoutDisabled, setCheckoutDisabled] = useState(null) // state variable for whether to disabled checkout button
 
   // effect hook for toggling checkout button access
+  // only add address to Lob address book with an uploaded image and complete destination form
   // runs after every render (unlike lifecycle methods, doesn't require separate method for unmounting)
   useEffect(() => {
-    // only add address to Lob address book with an uploaded image and complete destination form
     if ( !!remotePicture && !!values.senderName & !!values.recipientName && !!values.address1 && !!values.zip ) {
       addAddressToLob()
       remotePicture && remoteAddress ? setCheckoutDisabled(false) : setCheckoutDisabled(true)
     } else {
       setCheckoutDisabled(true)
     }
-
   }, [values, remotePicture])
 
   // callback function to update state variable holding user image
+  // only need to store image on user image upload, not removal
   const handleUpload = event => {
     setPicture(event)
-
-    // only need to store image on user image upload, not removal
     event.length !== 0 ? addImgToCloud() : setRemotePicture(null)
-
-    // if (event.length !== 0) {
-    //   addImgToCloud()
-    // } else {
-    //   setRemotePicture(null)
-    // }
   }
 
   // storing user's uploaded image using Cloudinary and updating state with its new URL
@@ -74,16 +66,15 @@ export default function CardCreationContainer() {
           })
         .catch(err => console.log(err))
     } else {
-      console.log("can't find any user-uploaded image :(")
+      console.log("can't find any user-uploaded image")
     }
 
-  }
+  } // end addImgToCloud()
 
   // if available, grabbing the data URI for user's uploaded image file
   const findImgLocation = () => {
     if (document.querySelector(".uploadPicture")) {
-      const location = document.querySelector(".uploadPicture").getAttribute("src")
-      return location
+      return document.querySelector(".uploadPicture").getAttribute("src")
     } else {
       return null
     }
@@ -132,7 +123,7 @@ export default function CardCreationContainer() {
       address_zip: values.zip
     }
 
-    // testOutLob(addressee)
+    // testOutLob(addressee) OR createPostcard(addressee)
     // ensure user has selected a specific address, not just a town or city
     // if so, add address to Lob address book and use response to set remoteAddress state variable
     if ( !Number.isInteger(parseFloat(addressee.address_line1)) ) {
@@ -150,30 +141,11 @@ export default function CardCreationContainer() {
 
   } // end addAddressToLob()
 
-  // TO REMOVE OR COMMENT OUT
-  const handleSubmit = event => {
-    event.preventDefault()
-
-    let addressArr = values.address1.split(',').map(a => a.trim())
-    let addressee = {
-      name: values.recipientName,
-      address_line1: addressArr[0],
-      address_line2: values.address2,
-      address_city: addressArr[1],
-      address_state: addressArr[2],
-      address_zip: values.zip
-    }
-
-    testOutLob(addressee)
-  }
-
   // TO CHANGE NAME: maybe createPostcard -- shouldn't take any arguments
     // probably want to do this after successful payment anyways
   // using destination address inputs to create postcard with Lob API
   // addressee = { name, address_line1, address_line2, address_city, address_state, address_zip }
   const testOutLob = addressee => {
-    // const Lob = require('lob')(process.env.REACT_APP_LOB_TEST_SECRET_KEY)
-
     if (!remotePicture) {
       console.log("It appears you've uploaded an invalid image. Please try again.")
     } else if ( addressee.address_zip.length === 0 && !Number.isInteger(parseFloat(addressee.address_line1)) ) {
@@ -252,7 +224,6 @@ export default function CardCreationContainer() {
         handleChange={handleChange}
         handleAddressInputChange={handleAddressInputChange}
         handleAddressInputSelect={handleAddressInputSelect}
-        handleSubmit={handleSubmit}
       />
       <br></br>
 
