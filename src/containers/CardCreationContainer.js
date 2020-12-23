@@ -119,7 +119,7 @@ export default function CardCreationContainer() {
       .catch(error => console.error('Error', error))
   }
 
-  // adding an address to Lob address book with user inputted info
+  // adding an address to Lob address book with user inputted information
   const addAddressToLob = () => {
     let addressArr = values.address1.split(',').map(a => a.trim())
 
@@ -133,8 +133,8 @@ export default function CardCreationContainer() {
     }
 
     // testOutLob(addressee)
-    // ensure user hasn't selected a town or city without a specific address
-    // if not, add address to Lob address book and use response to set remoteAddress state variable
+    // ensure user has selected a specific address, not just a town or city
+    // if so, add address to Lob address book and use response to set remoteAddress state variable
     if ( !Number.isInteger(parseFloat(addressee.address_line1)) ) {
       alert("You've entered an invalid destination address. Please try again.")
     } else {
@@ -148,9 +148,9 @@ export default function CardCreationContainer() {
       })
     }
 
-  }
+  } // end addAddressToLob()
 
-  // to remove or comment out
+  // TO REMOVE OR COMMENT OUT
   const handleSubmit = event => {
     event.preventDefault()
 
@@ -167,6 +167,8 @@ export default function CardCreationContainer() {
     testOutLob(addressee)
   }
 
+  // TO CHANGE NAME: maybe createPostcard -- shouldn't take any arguments
+    // probably want to do this after successful payment anyways
   // using destination address inputs to create postcard with Lob API
   // addressee = { name, address_line1, address_line2, address_city, address_state, address_zip }
   const testOutLob = addressee => {
