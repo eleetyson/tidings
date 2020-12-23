@@ -1,8 +1,7 @@
-import React from 'react'
-
+// simple card with button for checkout redirect
 export default function CheckoutCard(props) {
   return (
-    <div className="box-shadow-card  py-2 px-3">
+    <div className="box-shadow-card">
       <p className="box-shadow-card-title">3. Send your postcard</p>
 
       <form onSubmit={props.handleCheckout}>

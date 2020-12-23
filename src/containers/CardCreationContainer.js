@@ -19,17 +19,23 @@ export default function CardCreationContainer() {
   const [remotePicture, setRemotePicture] = useState(null) // state variable for Cloudinary-hosted image location
   const [checkoutDisabled, setCheckoutDisabled] = useState(null) // state variable for whether to disabled checkout button
 
-  // effect hook for toggling checkout button access
-  // only add address to Lob address book with an uploaded image and complete destination form
-  // runs after every render (unlike lifecycle methods, doesn't require separate method for unmounting)
+  // add address to Lob address book once destination form fields are filled
   useEffect(() => {
-    if ( !!remotePicture && !!values.senderName & !!values.recipientName && !!values.address1 && !!values.zip ) {
+    if ( !!values.senderName & !!values.recipientName && !!values.address1 && !!values.zip ) {
       addAddressToLob()
-      remotePicture && remoteAddress ? setCheckoutDisabled(false) : setCheckoutDisabled(true)
+    } else {
+      setRemoteAddress(null)
+    }
+  }, [values])
+
+  // effect hook for toggling checkout button access once stored image and address are both present
+  useEffect(() => {
+    if ( !!remotePicture && remoteAddress !== null ) {
+      setCheckoutDisabled(false)
     } else {
       setCheckoutDisabled(true)
     }
-  }, [values, remotePicture])
+  }, [remoteAddress, remotePicture])
 
   // callback function to update state variable holding user image
   // only need to store image on user image upload, not removal
@@ -147,9 +153,9 @@ export default function CardCreationContainer() {
   // addressee = { name, address_line1, address_line2, address_city, address_state, address_zip }
   const testOutLob = addressee => {
     if (!remotePicture) {
-      console.log("It appears you've uploaded an invalid image. Please try again.")
+      console.log("You've uploaded an invalid image. Please try again.")
     } else if ( addressee.address_zip.length === 0 && !Number.isInteger(parseFloat(addressee.address_line1)) ) {
-      console.log("It appears you've entered an invalid destination address. Please try again.")
+      console.log("Yu've entered an invalid destination address. Please try again.")
     } else {
       Lob.postcards.create({
         to: addressee,

@@ -1,10 +1,9 @@
 // form for user to specify postcard destination address and other related info
-import React from 'react'
 import SearchInput from './SearchInput'
 
 export default function CardDestinationForm(props) {
   return (
-    <div className="box-shadow-card  py-2 px-3">
+    <div className="box-shadow-card">
       <p className="box-shadow-card-title">2. Specify a destination</p>
 
       <form className="destination  d-flex flex-column justify-content-center align-items-center py-2">
@@ -36,8 +35,6 @@ export default function CardDestinationForm(props) {
           onChange={props.handleChange}
           autoComplete={'' + Math.random()}
         />
-
-        <input type="submit" value="Check destination validity" />
       </form>
     </div>
   )
