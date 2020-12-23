@@ -9,7 +9,7 @@ export default function CardDestinationForm(props) {
 
       <form onSubmit={props.handleSubmit} className="destination  d-flex flex-column justify-content-center align-items-center py-2">
         <input
-          name="senderName" type="text" placeholder="Your full name *"
+          name="senderName" type="text" placeholder="Your name *"
           value={props.senderName}
           onChange={props.handleChange}
           autoComplete={'' + Math.random()}
@@ -17,7 +17,7 @@ export default function CardDestinationForm(props) {
         />
 
         <input
-          name="recipientName" type="text" placeholder="Recipient full name *"
+          name="recipientName" type="text" placeholder="Recipient name *"
           value={props.recipientName}
           onChange={props.handleChange}
           autoComplete={'' + Math.random()}

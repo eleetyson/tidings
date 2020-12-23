@@ -6,33 +6,31 @@ import ImageUploadForm from '../components/ImageUploadForm'
 import CardDestinationForm from '../components/CardDestinationForm'
 import CheckoutCard from '../components/CheckoutCard'
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_LIVE_KEY) // Stripe object from the stripe-js module
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_LIVE_KEY) // Stripe object
+const Lob = require('lob')(process.env.REACT_APP_LOB_TEST_SECRET_KEY) // Lob object
 
 export default function CardCreationContainer() {
 
   // declaring state variables for card destination details
   const initialValues = { senderName: '', recipientName: '', address1: '', address2: '', zip: '' }
   const [values, setValues] = useState(initialValues)
+  const [remoteAddress, setRemoteAddress] = useState(null) // state variable for Lob address corresponding to user destination form inputs
   const [picture, setPicture] = useState(null) // state variable for user-uploaded image in browser
   const [remotePicture, setRemotePicture] = useState(null) // state variable for user-uploaded image location in cloud storage
   const [checkoutDisabled, setCheckoutDisabled] = useState(null) // state variable for whether to disabled checkout button
 
-  // effect hook for toggling checkout button access based on form completion
+  // effect hook for toggling checkout button access
   // runs after every render (unlike lifecycle methods, doesn't require separate method for unmounting)
   useEffect(() => {
-    // only want to enable checkout w successful image upload and address input
-    // need to determine when to ping Lob API with address
-    // will also need a separate state value for remoteAddress
-    // remotePicture && remoteAddress ? setCheckoutDisabled(false) : setCheckoutDisabled(true)
-    remotePicture ? setCheckoutDisabled(false) : setCheckoutDisabled(true)
+    // only add address to Lob address book with an uploaded image and complete destination form
+    if ( !!remotePicture && !!values.senderName & !!values.recipientName && !!values.address1 && !!values.zip ) {
+      addAddressToLob()
+      remotePicture && remoteAddress ? setCheckoutDisabled(false) : setCheckoutDisabled(true)
+    } else {
+      setCheckoutDisabled(true)
+    }
 
-    // if ( remotePicture ) {
-    //   setCheckoutAllowed(true)
-    // } else {
-    //   setCheckoutAllowed(false)
-    // }
-
-  }, [remotePicture, values])
+  }, [values, remotePicture])
 
   // callback function to update state variable holding user image
   const handleUpload = event => {
@@ -121,7 +119,38 @@ export default function CardCreationContainer() {
       .catch(error => console.error('Error', error))
   }
 
-  // tbd
+  // adding an address to Lob address book with user inputted info
+  const addAddressToLob = () => {
+    let addressArr = values.address1.split(',').map(a => a.trim())
+
+    let addressee = {
+      name: values.recipientName,
+      address_line1: addressArr[0],
+      address_line2: values.address2,
+      address_city: addressArr[1],
+      address_state: addressArr[2],
+      address_zip: values.zip
+    }
+
+    // testOutLob(addressee)
+    // ensure user hasn't selected a town or city without a specific address
+    // if not, add address to Lob address book and use response to set remoteAddress state variable
+    if ( !Number.isInteger(parseFloat(addressee.address_line1)) ) {
+      alert("You've entered an invalid destination address. Please try again.")
+    } else {
+      Lob.addresses.create(addressee, (err, address) => {
+        if (err) {
+          alert(err)
+          setRemoteAddress(null)
+        } else {
+          setRemoteAddress(address)
+        }
+      })
+    }
+
+  }
+
+  // to remove or comment out
   const handleSubmit = event => {
     event.preventDefault()
 
@@ -141,7 +170,7 @@ export default function CardCreationContainer() {
   // using destination address inputs to create postcard with Lob API
   // addressee = { name, address_line1, address_line2, address_city, address_state, address_zip }
   const testOutLob = addressee => {
-    const Lob = require('lob')(process.env.REACT_APP_LOB_TEST_SECRET_KEY)
+    // const Lob = require('lob')(process.env.REACT_APP_LOB_TEST_SECRET_KEY)
 
     if (!remotePicture) {
       console.log("It appears you've uploaded an invalid image. Please try again.")
@@ -156,11 +185,14 @@ export default function CardCreationContainer() {
           name: values.senderName,
           img: remotePicture
         }
-      }, function(err, postcard) {
-          err ? console.log(err) : console.log(postcard)
-      })
-
-    }
+      }, (err, postcard) => {
+          if (err) {
+            alert(err)
+          } else {
+            console.log(postcard)
+          }
+        })
+      }
 
     // clear out state after form submission
     // setValues(initialValues)
