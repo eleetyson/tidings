@@ -28,7 +28,7 @@ export default function CardCreationContainer() {
     }
   }, [values])
 
-  // effect hook for toggling checkout button access once stored image and address are both present
+  // toggle checkout button access once stored image and address are both present
   useEffect(() => {
     if ( !!remotePicture && remoteAddress !== null ) {
       setCheckoutDisabled(false)
@@ -155,7 +155,7 @@ export default function CardCreationContainer() {
     if (!remotePicture) {
       console.log("You've uploaded an invalid image. Please try again.")
     } else if ( addressee.address_zip.length === 0 && !Number.isInteger(parseFloat(addressee.address_line1)) ) {
-      console.log("Yu've entered an invalid destination address. Please try again.")
+      console.log("You've entered an invalid destination address. Please try again.")
     } else {
       Lob.postcards.create({
         to: addressee,
@@ -174,7 +174,7 @@ export default function CardCreationContainer() {
         })
       }
 
-    // clear out state after form submission
+    // probably don't need to clear out anything bc of redirect
     // setValues(initialValues)
     // setPicture(null)
     // setRemotePicture(null)
@@ -187,6 +187,7 @@ export default function CardCreationContainer() {
     event.preventDefault()
     const stripe = await stripePromise
 
+    // probably want to create a client with image and form info, send that client id as a property in checkout redirect
     const { error } = await stripe.redirectToCheckout({
       lineItems: [{
         price: 'price_1I0cm0BrGXf3SoO6zIFh9jvE',
@@ -197,21 +198,7 @@ export default function CardCreationContainer() {
       cancelUrl: 'https://tidings-app.netlify.app',  // https://example.com/cancel https://tidings-app.netlify.app
     })
 
-    // add css arrow to checkout button hover [X]
-    // remove unneeded Stripe elements from container component? [X]
-
-    // move logic back into container component [X]
-    // only want to enable checkout button with uploaded image and form complete []
-      // useEffect to check whether there's a remotePicture and remoteAddress
-        // should attempt to add address on step 2 completion
-      // want a function passing down a boolean as a prop to this CheckoutCard component
-        // if state contains a remote picture address in Cloudinary and a valid address created with Lob, return true
-        // else return false, button remains disabled
-      //
-
-    // build out separate success page? []
-    // add some type of alert or popup for error message on main page []
-
+    // create actual postcard upon successful payment... maybe send confirmation email too
   }
 
   return (
