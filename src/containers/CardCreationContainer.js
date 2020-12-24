@@ -140,7 +140,9 @@ export default function CardCreationContainer() {
           alert(err)
           setRemoteAddress(null)
         } else {
-          setRemoteAddress(address)
+          // maybe just want the address id instead
+          // setRemoteAddress(address)
+          setRemoteAddress(address.id)
         }
       })
     }
@@ -185,7 +187,14 @@ export default function CardCreationContainer() {
   // handling redirect to Stripe-hosted checkout page
   const handleCheckout = async (event) => {
     event.preventDefault()
+    // set local storage with remotePicture and remoteAddress
+    localStorage.setItem('remotePicture', remotePicture )
+    localStorage.setItem('remoteAddress', remoteAddress )
     const stripe = await stripePromise
+    debugger
+
+    // need a way to store uploaded image and inputted form details until after checkout session completion
+
 
     // probably want to create a client with image and form info, send that client id as a property in checkout redirect
     const { error } = await stripe.redirectToCheckout({
@@ -194,6 +203,7 @@ export default function CardCreationContainer() {
         quantity: 1,
       }],
       mode: 'payment',
+      // clientReferenceId: customer.id, // using a customer id to identify the checkout session
       successUrl: 'https://tidings-app.netlify.app', // https://example.com/success https://tidings-app.netlify.app
       cancelUrl: 'https://tidings-app.netlify.app',  // https://example.com/cancel https://tidings-app.netlify.app
     })
