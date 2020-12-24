@@ -129,7 +129,6 @@ export default function CardCreationContainer() {
       address_zip: values.zip
     }
 
-    // testOutLob(addressee) OR createPostcard(addressee)
     // ensure user has selected a specific address, not just a town or city
     // if so, add address to Lob address book and use response to set remoteAddress state variable
     if ( !Number.isInteger(parseFloat(addressee.address_line1)) ) {
@@ -147,23 +146,18 @@ export default function CardCreationContainer() {
 
   } // end addAddressToLob()
 
-  // TO CHANGE NAME + MOVE TO SUCCESS COMPONENT:
-  // maybe createPostcard() -- shouldn't take any arguments
-  // using destination address inputs to create postcard with Lob API
-  // addressee = { name, address_line1, address_line2, address_city, address_state, address_zip }
-  const testOutLob = addressee => {
-    if (!remotePicture) {
-      console.log("You've uploaded an invalid image. Please try again.")
-    } else if ( addressee.address_zip.length === 0 && !Number.isInteger(parseFloat(addressee.address_line1)) ) {
-      console.log("You've entered an invalid destination address. Please try again.")
+  // TO MOVE TO SUCCESS COMPONENT
+  const createPostcard = () => {
+    if (!!localStorage.senderName && !!localStorage.remotePicture && !!localStorage.remoteAddress) {
+      alert('an unexpected error occurred')
     } else {
       Lob.postcards.create({
-        to: addressee,
+        to: localStorage.remoteAddress,
         front: 'tmpl_fed93452925c5bf',
         back: 'tmpl_f92a8a1d43eef0e',
         merge_variables: {
-          name: values.senderName,
-          img: remotePicture
+          name: localStorage.senderName,
+          img: localStorage.remotePicture
         }
       }, (err, postcard) => {
           if (err) {
@@ -174,12 +168,6 @@ export default function CardCreationContainer() {
         })
       }
 
-    // probably don't need to clear out anything bc of redirect
-    // setValues(initialValues)
-    // setPicture(null)
-    // setRemotePicture(null)
-
-    // also will want to display some sort of confirmation + maybe SMS message?
   }
 
   // handling redirect to Stripe-hosted checkout page
