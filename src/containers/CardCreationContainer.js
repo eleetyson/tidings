@@ -151,30 +151,6 @@ export default function CardCreationContainer() {
 
   } // end addAddressToLob()
 
-  // TO MOVE TO SUCCESS COMPONENT
-  const createPostcard = () => {
-    if (!!localStorage.senderName && !!localStorage.remotePicture && !!localStorage.remoteAddress) {
-      alert('an unexpected error occurred')
-    } else {
-      Lob.postcards.create({
-        to: localStorage.remoteAddress,
-        front: 'tmpl_fed93452925c5bf',
-        back: 'tmpl_f92a8a1d43eef0e',
-        merge_variables: {
-          name: localStorage.senderName,
-          img: localStorage.remotePicture
-        }
-      }, (err, postcard) => {
-          if (err) {
-            alert(err)
-          } else {
-            console.log(postcard)
-          }
-        })
-      }
-
-  }
-
   // handling redirect to Stripe-hosted checkout page
   const handleCheckout = async (event) => {
     event.preventDefault()
@@ -193,8 +169,8 @@ export default function CardCreationContainer() {
         quantity: 1,
       }],
       mode: 'payment',
-      successUrl: 'https://tidings-app.netlify.app', // https://tidings-app.netlify.app/success
-      cancelUrl: 'https://tidings-app.netlify.app',  // https://tidings-app.netlify.app/error
+      successUrl: 'https://tidings-app.netlify.app/success',
+      cancelUrl: 'https://tidings-app.netlify.app/error',
     })
 
     if (error) {
