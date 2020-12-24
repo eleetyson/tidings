@@ -94,7 +94,7 @@ export default function CardCreationContainer() {
     })
   }
 
-  // callback updating the address field and state variable
+  // callback updating address field and state variable
   const handleAddressInputChange = addressStr => {
     setValues({ ...values, address1: addressStr, zip: '' })
   }
@@ -105,7 +105,7 @@ export default function CardCreationContainer() {
     findZip(addressStr)
   }
 
-  // state hook to update zip code
+  // state hook updating zip code
   const findZip = addressStr => {
     geocodeByAddress(addressStr)
       .then(results => (results[0]))
@@ -140,8 +140,6 @@ export default function CardCreationContainer() {
           alert(err)
           setRemoteAddress(null)
         } else {
-          // maybe just want the address id instead
-          // setRemoteAddress(address)
           setRemoteAddress(address.id)
         }
       })
@@ -149,8 +147,8 @@ export default function CardCreationContainer() {
 
   } // end addAddressToLob()
 
-  // TO CHANGE NAME: maybe createPostcard -- shouldn't take any arguments
-    // probably want to do this after successful payment anyways
+  // TO CHANGE NAME + MOVE TO SUCCESS COMPONENT:
+  // maybe createPostcard() -- shouldn't take any arguments
   // using destination address inputs to create postcard with Lob API
   // addressee = { name, address_line1, address_line2, address_city, address_state, address_zip }
   const testOutLob = addressee => {
@@ -187,28 +185,32 @@ export default function CardCreationContainer() {
   // handling redirect to Stripe-hosted checkout page
   const handleCheckout = async (event) => {
     event.preventDefault()
-    // set local storage with remotePicture and remoteAddress
+
+    // set local storage with info for sending postcard upon successful payment
+    localStorage.setItem('senderName', values.senderName )
     localStorage.setItem('remotePicture', remotePicture )
     localStorage.setItem('remoteAddress', remoteAddress )
+
     const stripe = await stripePromise
-    debugger
 
-    // need a way to store uploaded image and inputted form details until after checkout session completion
-
-
-    // probably want to create a client with image and form info, send that client id as a property in checkout redirect
+    // redirect to success page upon successful payment, error page otherwise
     const { error } = await stripe.redirectToCheckout({
       lineItems: [{
         price: 'price_1I0cm0BrGXf3SoO6zIFh9jvE',
         quantity: 1,
       }],
       mode: 'payment',
-      // clientReferenceId: customer.id, // using a customer id to identify the checkout session
-      successUrl: 'https://tidings-app.netlify.app', // https://example.com/success https://tidings-app.netlify.app
-      cancelUrl: 'https://tidings-app.netlify.app',  // https://example.com/cancel https://tidings-app.netlify.app
+      successUrl: 'https://tidings-app.netlify.app', // https://tidings-app.netlify.app/success
+      cancelUrl: 'https://tidings-app.netlify.app',  // https://tidings-app.netlify.app/error
     })
 
-    // create actual postcard upon successful payment... maybe send confirmation email too
+    if (error) {
+      alert(error.message)
+    }
+
+    // need to verify that local storage persists after payment
+    // create and send postcard w image and address upon successful payment... maybe send confirmation email too
+    // clear out local storage afterwards
   }
 
   return (
