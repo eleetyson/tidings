@@ -19,6 +19,11 @@ export default function CardCreationContainer() {
   const [remotePicture, setRemotePicture] = useState(null) // state variable for Cloudinary-hosted image location
   const [checkoutDisabled, setCheckoutDisabled] = useState(null) // state variable for whether to disabled checkout button
 
+  // clearing out user's local storage on initial page load
+  useEffect(() => {
+    localStorage.clear()
+  }, [])
+
   // add address to Lob address book once destination form fields are filled
   useEffect(() => {
     if ( !!values.senderName & !!values.recipientName && !!values.address1 && !!values.zip ) {
