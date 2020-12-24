@@ -201,9 +201,6 @@ export default function CardCreationContainer() {
       alert(error.message)
     }
 
-    // need to verify that local storage persists after payment
-    // create and send postcard w image and address upon successful payment... maybe send confirmation email too
-    // clear out local storage afterwards
   }
 
   return (
