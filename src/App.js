@@ -4,11 +4,16 @@ import CardCreationContainer from './containers/CardCreationContainer'
 import Success from './components/Success'
 import Error from './components/Error'
 
-// only want success and error routes to be accessible post-payment
+// success and error routes are only accessible after payment
 export default function App() {
-  let senderName = localStorage.getItem('senderName')
-  let remotePicture = localStorage.getItem('remotePicture')
-  let remoteAddress = localStorage.getItem('remoteAddress')
+
+  const necessaryInfoStoredYet = () => {
+    let senderName = localStorage.getItem('senderName')
+    let remotePicture = localStorage.getItem('remotePicture')
+    let remoteAddress = localStorage.getItem('remoteAddress')
+
+    return !!senderName && !!remotePicture && !!remoteAddress
+  }
 
   return (
     <Router>
@@ -18,11 +23,11 @@ export default function App() {
         </Route>
 
         <Route exact path="/success">
-          { !senderName || !remotePicture || !remoteAddress ? <Redirect to="/" /> : <Success /> }
+          { necessaryInfoStoredYet() ? <Success /> : <Redirect to="/" /> }
         </Route>
 
         <Route exact path="/error">
-          { !senderName || !remotePicture || !remoteAddress ? <Redirect to="/" /> : <Error /> }
+          { necessaryInfoStoredYet() ? <Error /> : <Redirect to="/" /> }
         </Route>
       </div>
     </Router>
@@ -30,8 +35,10 @@ export default function App() {
 
 }
 
-// let senderName = localStorage.getItem('senderName')
-// let remotePicture = localStorage.getItem('remotePicture')
-// let remoteAddress = localStorage.getItem('remoteAddress')
-
-// { senderName && remotePicture && remoteAddress ? <Redirect to="/" /> : <Success /> }
+// <Route exact path="/success">
+//   { !senderName || !remotePicture || !remoteAddress ? <Redirect to="/" /> : <Success /> }
+// </Route>
+//
+// <Route exact path="/error">
+//   { !senderName || !remotePicture || !remoteAddress ? <Redirect to="/" /> : <Error /> }
+// </Route>
