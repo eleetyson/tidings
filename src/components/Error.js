@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react'
 import Bug from '../bug.svg'
 
+// localStorage.setItem('senderName', 'e' )
+// localStorage.setItem('remotePicture', 'e' )
+// localStorage.setItem('remoteAddress', 'e' )
+
 export default function Error() {
   // clearing out user's local storage after payment
   useEffect(() => {
@@ -28,8 +32,3 @@ export default function Error() {
   )
 
 }
-
-
-// localStorage.setItem('senderName', 'e' )
-// localStorage.setItem('remotePicture', 'e' )
-// localStorage.setItem('remoteAddress', 'e' )
