@@ -6,6 +6,7 @@ export default function Success() {
   // clearing out user's local storage after payment
   useEffect(() => {
     localStorage.clear()
+    document.title = 'Success'
   }, [])
 
   const createPostcard = () => {

@@ -28,3 +28,8 @@ export default function Error() {
   )
 
 }
+
+
+// localStorage.setItem('senderName', 'e' )
+// localStorage.setItem('remotePicture', 'e' )
+// localStorage.setItem('remoteAddress', 'e' )
