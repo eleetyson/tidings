@@ -180,31 +180,36 @@ export default function CardCreationContainer() {
   }
 
   return (
-    <div className="container  d-flex flex-column justify-content-center align-items-center  col-8 offset-2">
+    <>
+      <div className="container  d-flex flex-column justify-content-center align-items-center  col-8 offset-2">
+        <ImageUploadForm
+          handleUpload={handleUpload}
+        />
+        <br></br>
 
-      <ImageUploadForm
-        handleUpload={handleUpload}
-      />
-      <br></br>
+        <CardDestinationForm
+          senderName={values.senderName}
+          recipientName={values.recipientName}
+          address1={values.address1}
+          address2={values.address2}
+          handleChange={handleChange}
+          handleAddressInputChange={handleAddressInputChange}
+          handleAddressInputSelect={handleAddressInputSelect}
+        />
+        <br></br>
 
-      <CardDestinationForm
-        senderName={values.senderName}
-        recipientName={values.recipientName}
-        address1={values.address1}
-        address2={values.address2}
-        handleChange={handleChange}
-        handleAddressInputChange={handleAddressInputChange}
-        handleAddressInputSelect={handleAddressInputSelect}
-      />
-      <br></br>
+        <CheckoutCard
+          handleCheckout={handleCheckout}
+          checkoutDisabled={checkoutDisabled}
+        />
+        <br></br>
+      </div>
 
-      <CheckoutCard
-        handleCheckout={handleCheckout}
-        checkoutDisabled={checkoutDisabled}
-      />
-      <br></br>
-
-    </div>
+      <footer className="container">
+        <hr className="featurette-divider" />
+        <p className="float-right pb-1"><a href="/">About</a></p>
+      </footer>
+    </>
   )
 
 }

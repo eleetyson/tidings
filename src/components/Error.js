@@ -14,7 +14,7 @@ export default function Error() {
 
   return (
     <>
-      <div className="alert alert-danger alert-dismissible fade show  mt-4" role="alert">
+      <div className="alert alert-danger alert-dismissible fade show  mt-2" role="alert">
         An unexpected error occurred. For help, feel free to email me at eleetyson@gmail.com.
         <button type="button" className="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
