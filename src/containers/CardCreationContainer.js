@@ -160,6 +160,10 @@ export default function CardCreationContainer() {
     localStorage.setItem('remotePicture', remotePicture )
     localStorage.setItem('remoteAddress', remoteAddress )
 
+    // localStorage.setItem('senderName', 'e' )
+    // localStorage.setItem('remotePicture', 'e' )
+    // localStorage.setItem('remoteAddress', 'e' )
+
     const stripe = await stripePromise
 
     // redirect to success page upon successful payment, error page otherwise
