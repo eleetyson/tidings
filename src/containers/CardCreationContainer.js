@@ -207,7 +207,7 @@ export default function CardCreationContainer() {
 
       <footer className="container">
         <hr className="featurette-divider" />
-        <p className="float-right pb-1"><a href="/">About</a></p>
+        <p className="float-right pb-1"><a href="/about">About</a></p>
       </footer>
     </>
   )
