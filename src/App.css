@@ -15,6 +15,7 @@
 body {
   background: url(stripe.svg) 0 0 no-repeat;
   background-size: 100% 6px;
+  animation: fade-in-fwd 0.5s both;
 }
 
 /* styling image upload form */
@@ -56,6 +57,7 @@ div.box-shadow-card {
   width: 38rem;
   background-image: var(--gradient-grey);
   padding: 0.8rem 1.2rem;
+  animation: fade-in-fwd 1.5s both;
 }
 
 .box-shadow-card-title {
@@ -164,4 +166,16 @@ button.paymentBtn:hover:disabled {
 img.error-illustration {
   margin-top: 3rem;
   height: 300px;
+}
+
+/* simple fade in animation for pages */
+@keyframes fade-in-fwd {
+  0% {
+    transform: translateZ(-80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateZ(0);
+    opacity: 1;
+  }
 }

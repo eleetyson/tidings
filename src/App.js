@@ -1,9 +1,9 @@
 import './App.css'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import CardCreationContainer from './containers/CardCreationContainer'
+import AboutContainer from './containers/AboutContainer'
 import Success from './components/Success'
 import Error from './components/Error'
-import AboutContainer from './containers/AboutContainer'
 
 // success and error routes are only accessible after payment
 export default function App() {

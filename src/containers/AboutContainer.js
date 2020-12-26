@@ -5,6 +5,7 @@ export default function AboutContainer() {
   // clearing out user's local storage on initial page load
   useEffect(() => {
     localStorage.clear()
+    document.title = 'About'
   }, [])
 
   return (
