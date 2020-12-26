@@ -1,5 +1,5 @@
 ### Tidings
-[![Example postcard](src/visuals/example.png)
+[![Example postcard](src/visuals/example.png)]
 
 Tidings lets you send a postcard with an image in 2 minutes.
 
