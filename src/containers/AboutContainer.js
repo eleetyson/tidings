@@ -17,7 +17,7 @@ export default function AboutContainer() {
 
         <div className="box-shadow-card">
           <h5 className="font-weight-bold">What is this?</h5>
-          <p>Tidings lets you send a postcard of any image to anyone in the US.</p>
+          <p>Tidings lets you send a postcard with an image to anyone in the US.</p>
             <ol className="about-list">
               <li>Upload an image 📤</li>
               <li>Enter a destination address 📍</li>
