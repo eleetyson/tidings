@@ -6,7 +6,7 @@ export default function CardDestinationForm(props) {
   return (
     <div className="box-shadow-card">
       <p className="box-shadow-card-title">
-        <RoughNotation type="circle" show="true" color="#d0000f" padding={15} animationDelay={1000} animationDuration={1000}>
+        <RoughNotation type="circle" show="true" color="#28a745" padding={15} animationDelay={2000} animationDuration={1000}>
           2. Specify a destination
         </RoughNotation>
       </p>

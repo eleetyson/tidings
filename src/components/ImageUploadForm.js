@@ -7,7 +7,7 @@ export default function ImageUploadForm(props) {
   return (
     <div className="box-shadow-card">
       <p className="box-shadow-card-title">
-        <RoughNotation type="circle" show="true" color="#d0000f" padding={15} animationDuration={1000}>
+        <RoughNotation type="box" show="true" color="#28a745" animationDelay={1000} animationDuration={1000}>
           1. Upload an image
         </RoughNotation>
       </p>

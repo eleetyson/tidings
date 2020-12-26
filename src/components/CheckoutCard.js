@@ -5,7 +5,7 @@ export default function CheckoutCard(props) {
   return (
     <div className="box-shadow-card">
       <p className="box-shadow-card-title">
-        <RoughNotation type="box" show="true" color="#28a745" animationDelay={2000} animationDuration={1000}>
+        <RoughNotation type="underline" show="true" color="#28a745" padding={10} iterations={4} animationDelay={3000} animationDuration={1000}>
           3. Send your postcard
         </RoughNotation>
       </p>
