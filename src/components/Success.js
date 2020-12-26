@@ -1,14 +1,28 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import LottieAnimation from '../visuals/Lottie'
+import mail from '../visuals/mail.json'
 
 const Lob = require('lob')(process.env.REACT_APP_LOB_TEST_SECRET_KEY) // Lob object
 
+// localStorage.setItem('senderName', 'e' )
+// localStorage.setItem('remotePicture', 'e' )
+// localStorage.setItem('remoteAddress', 'e' )
+
+// localStorage.setItem('senderName', 'Ethan' )
+// localStorage.setItem('remotePicture', 'https://res.cloudinary.com/df7waillu/image/upload/v1608913781/tidings/qsk7f3l7a6zxauwikl6f.jpg' )
+// localStorage.setItem('remoteAddress', 'adr_e943322724a3a0a1' )
+
 export default function Success() {
-  // clearing out user's local storage after payment
+  const [status, setStatus] = useState(null) // state variable tracking Lob postcard creation
+
+  //
   useEffect(() => {
-    localStorage.clear()
+    createPostcard()
     document.title = 'Success'
+    localStorage.clear()
   }, [])
 
+  // creating and sending the postcard with Lob
   const createPostcard = () => {
     Lob.postcards.create({
       to: localStorage.remoteAddress,
@@ -18,38 +32,34 @@ export default function Success() {
         name: localStorage.senderName,
         img: localStorage.remotePicture
       }
-    }, (err, postcard) => {
-        if (err) {
-          return (
-            <div className="alert alert-danger alert-dismissible fade show" role="alert">
-              An unexpected error occurred. For help, please email eleetyson@gmail.com.
-              <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          )
-        } else {
-          return (
-            <div className="alert alert-success alert-dismissible fade show" role="alert">
-              Your postcard is on its way! It's set to arrive in 5 - 7 business days :)
-              <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          )
-        }
-      })
+    }, (err, response) => {
+        !!response ? setStatus(true) : setStatus(false)
+      }
+    )
 
-  } // end createPostcard()
+  }
+
+  // conditionally rendering message based on postcard creation status
+  const renderStatus = () => {
+    if (status === null) {
+      return null
+    } else if (status === false) {
+      return <h4 className="mx-auto  mailed-failed">An unexpected error occurred. For help, feel free to email me at eleetyson@gmail.com.</h4>
+    } else {
+      return <h4 className="mx-auto  mailed">Your postcard is on its way! It's set to arrive in 5 - 7 business days :)</h4>
+    }
+  }
 
   return (
     <>
-      {createPostcard()}
+      {renderStatus()}
       <br></br>
 
-      <button type="button" className="btn btn-primary btn-lg btn-block" onClick={event => window.location.href='/'}>
+      <button type="button" className="btn btn-primary" onClick={event => window.location.href='/'}>
         « Back to postcard creation page
       </button>
+
+      { !!status && <LottieAnimation lotti={mail} height={400} width={600} /> }
     </>
   )
 

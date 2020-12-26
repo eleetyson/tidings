@@ -34,11 +34,3 @@ export default function App() {
   )
 
 }
-
-// <Route exact path="/success">
-//   { !senderName || !remotePicture || !remoteAddress ? <Redirect to="/" /> : <Success /> }
-// </Route>
-//
-// <Route exact path="/error">
-//   { !senderName || !remotePicture || !remoteAddress ? <Redirect to="/" /> : <Error /> }
-// </Route>

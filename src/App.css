@@ -53,7 +53,7 @@ div.errorMessage {
 /* styling cards on main postcard creation page */
 div.box-shadow-card {
   box-shadow: rgba(0,0,0,.25) 0 2px 16px;
-  width: 40rem;
+  width: 38rem;
   background-image: var(--gradient-grey);
   padding: 0.8rem 1.2rem;
 }
@@ -65,8 +65,8 @@ div.box-shadow-card {
 
 /* styling postcard destination form */
 form.destination input {
-  width: 35rem;
-  height: 2.5rem;
+  width: 34rem;
+  height: 2.4rem;
   border-radius: 5px;
   border-width: 1px;
   padding: 10px;
@@ -164,4 +164,19 @@ button.paymentBtn:hover:disabled {
 img.error-illustration {
   margin-top: 3rem;
   height: 300px;
+}
+
+h4.mailed {
+  animation: fadeIn ease 1s;
+  color: var(--dark-green);
+}
+
+h4.mailed-failed {
+  animation: fadeIn ease 1s;
+  color: var(--dark-red);
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }

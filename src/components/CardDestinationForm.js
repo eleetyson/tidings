@@ -1,12 +1,17 @@
 // form for user to specify postcard destination address and other related info
 import SearchInput from './SearchInput'
+import { RoughNotation } from "react-rough-notation"
 
 export default function CardDestinationForm(props) {
   return (
     <div className="box-shadow-card">
-      <p className="box-shadow-card-title">2. Specify a destination</p>
+      <p className="box-shadow-card-title">
+        <RoughNotation type="circle" show="true" color="#d0000f" padding={15} animationDelay={1000} animationDuration={1000}>
+          2. Specify a destination
+        </RoughNotation>
+      </p>
 
-      <form className="destination  d-flex flex-column justify-content-center align-items-center py-2">
+      <form className="destination  d-flex flex-column justify-content-center align-items-center pt-1 pb-2">
         <input
           name="senderName" type="text" placeholder="Your name *"
           value={props.senderName}
