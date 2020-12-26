@@ -77,7 +77,7 @@ export default function CardCreationContainer() {
           })
         .catch(err => console.log(err))
     } else {
-      console.log("can't find any user-uploaded image")
+      alert("Unable to use uploaded image. Please try again.")
     }
 
   } // end addImgToCloud()

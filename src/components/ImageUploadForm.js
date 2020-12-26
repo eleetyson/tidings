@@ -1,4 +1,4 @@
-// a simple image upload component to handle user image selection
+// card with functionality to upload, preview, and remove an image
 import ImageUploader from 'react-images-upload'
 
 export default function ImageUploadForm(props) {
@@ -14,7 +14,6 @@ export default function ImageUploadForm(props) {
         buttonText="Upload"
         imgExtension={[".jpg", ".png"]}
       />
-
     </div>
   )
 

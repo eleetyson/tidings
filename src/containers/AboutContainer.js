@@ -1,4 +1,4 @@
-// simple about page
+// about page explaining this application
 import React, { useEffect } from 'react'
 
 export default function AboutContainer() {

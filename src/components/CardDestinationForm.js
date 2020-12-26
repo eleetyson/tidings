@@ -1,4 +1,4 @@
-// form for user to specify postcard destination address and other related info
+// form for entering postcard destination address
 import SearchInput from './SearchInput'
 
 export default function CardDestinationForm(props) {
