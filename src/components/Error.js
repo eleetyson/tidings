@@ -1,3 +1,4 @@
+// landing page redirect after unnsuccessful payment
 import React, { useEffect } from 'react'
 import Bug from '../visuals/bug.svg'
 

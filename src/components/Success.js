@@ -1,16 +1,9 @@
+// landing page redirect after successful payment that triggers postcard creation / scheduling
 import React, { useState, useEffect } from 'react'
 import LottieAnimation from '../visuals/Lottie'
 import mail from '../visuals/mail.json'
 
 const Lob = require('lob')(process.env.REACT_APP_LOB_TEST_SECRET_KEY) // Lob object
-
-// localStorage.setItem('senderName', 'e' )
-// localStorage.setItem('remotePicture', 'e' )
-// localStorage.setItem('remoteAddress', 'e' )
-
-// localStorage.setItem('senderName', 'Ethan' )
-// localStorage.setItem('remotePicture', 'https://res.cloudinary.com/df7waillu/image/upload/v1608913781/tidings/qsk7f3l7a6zxauwikl6f.jpg' )
-// localStorage.setItem('remoteAddress', 'adr_e943322724a3a0a1' )
 
 export default function Success() {
   const [status, setStatus] = useState(null) // state variable tracking Lob postcard creation
@@ -39,15 +32,30 @@ export default function Success() {
 
   }
 
-  // conditionally rendering message based on postcard creation status
+  // conditionally rendering alert based on postcard creation status
   const renderStatus = () => {
     if (status === null) {
       return null
     } else if (status === false) {
-      return <h4 className="mx-auto  mailed-failed">An unexpected error occurred. For help, feel free to email me at eleetyson@gmail.com.</h4>
+      return (
+        <div className="alert alert-danger alert-dismissible fade show  mt-2" role="alert">
+          An unexpected error occurred. For help, feel free to email me at eleetyson@gmail.com.
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      )
     } else {
-      return <h4 className="mx-auto  mailed">Your postcard is on its way! It's set to arrive in 5 - 7 business days :)</h4>
+      return (
+        <div className="alert alert-success alert-dismissible fade show  mt-2" role="alert">
+          Your postcard is on its way! It's set to arrive in 5 - 7 business days :)
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      )
     }
+
   }
 
   return (

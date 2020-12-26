@@ -1,16 +1,11 @@
 // a simple image upload component to handle user image selection
 import ImageUploader from 'react-images-upload'
-import { RoughNotation } from "react-rough-notation"
 
 export default function ImageUploadForm(props) {
 
   return (
     <div className="box-shadow-card">
-      <p className="box-shadow-card-title">
-        <RoughNotation type="box" show="true" color="#28a745" animationDelay={1000} animationDuration={1000}>
-          1. Upload an image
-        </RoughNotation>
-      </p>
+      <p className="box-shadow-card-title">1. Upload an image</p>
 
       <ImageUploader
         {...props}
