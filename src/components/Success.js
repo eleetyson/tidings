@@ -64,7 +64,7 @@ export default function Success() {
       <br></br>
 
       <button type="button" className="btn btn-primary" onClick={event => window.location.href='/'}>
-        « Back to postcard creation page
+        « Back
       </button>
 
       { !!status && <LottieAnimation lotti={mail} height={400} width={400} /> }

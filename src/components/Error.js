@@ -21,7 +21,7 @@ export default function Error() {
       <br></br>
 
       <button type="button" className="btn btn-primary" onClick={event => window.location.href='/'}>
-        « Back to postcard creation page
+        « Back
       </button>
       <br></br>
 
