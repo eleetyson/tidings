@@ -19,8 +19,8 @@ export default function Success() {
   const createPostcard = () => {
     Lob.postcards.create({
       to: localStorage.remoteAddress,
-      front: 'tmpl_fed93452925c5bf',
-      back: 'tmpl_f92a8a1d43eef0e',
+      front: 'tmpl_7ba36541a3059b5', // test template front: tmpl_fed93452925c5bf
+      back: 'tmpl_2472bffa85c7aa0', // test template back: tmpl_f92a8a1d43eef0e
       merge_variables: {
         name: localStorage.senderName,
         img: localStorage.remotePicture
