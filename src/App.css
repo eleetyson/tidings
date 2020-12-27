@@ -179,3 +179,33 @@ img.error-illustration {
     opacity: 1;
   }
 }
+
+/* media queries for mobile */
+@media (max-width: 575.98px) {
+  body {
+    font-size: 85%;
+  }
+
+  div.box-shadow-card {
+    width: 22rem;
+  }
+
+  .box-shadow-card-title {
+    font-size: 1.1rem;
+  }
+
+  form.destination input {
+    width: 20rem;
+    height: 2rem;
+  }
+
+  div.dropdown {
+    padding-top: 14px;
+  }
+
+  .suggestion-item--active,
+  .suggestion-item {
+    font-size: 75%;
+    font-weight: 600;
+  }
+}

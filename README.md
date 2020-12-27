@@ -21,6 +21,6 @@ It's written in JavaScript / React -- primarily with functional components and h
 Cloudinary's API helps with storing images, Stripe's with payment processing, and obviously Lob's with actual postcard creation & delivery. The destination form's autocomplete field relies on Google's Places API.
 
 ### This is verbose
-We can finish up here then. Feel free to email me at eleetyson@gmail.com if you found this interesting, useless, or anything in between 👋
+No worries. Please email me at eleetyson@gmail.com if you found this interesting, useless, or anything in between 👋
 
 \*Trello board: <https://trello.com/b/2D6O1b4S/tidings>\*

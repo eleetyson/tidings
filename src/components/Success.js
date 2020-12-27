@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import LottieAnimation from '../visuals/Lottie'
 import mail from '../visuals/mail.json'
 
-const Lob = require('lob')(process.env.REACT_APP_LOB_TEST_SECRET_KEY) // Lob object
+const Lob = require('lob')(process.env.REACT_APP_LOB_LIVE_SECRET_KEY) // Lob object
 
 export default function Success() {
   const [status, setStatus] = useState(null) // state variable tracking Lob postcard creation
@@ -67,7 +67,7 @@ export default function Success() {
         « Back to postcard creation page
       </button>
 
-      { !!status && <LottieAnimation lotti={mail} height={400} width={600} /> }
+      { !!status && <LottieAnimation lotti={mail} height={400} width={400} /> }
     </>
   )
 

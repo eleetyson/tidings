@@ -6,7 +6,7 @@ import ImageUploadForm from '../components/ImageUploadForm'
 import CardDestinationForm from '../components/CardDestinationForm'
 import CheckoutCard from '../components/CheckoutCard'
 
-const Lob = require('lob')(process.env.REACT_APP_LOB_TEST_SECRET_KEY) // Lob object
+const Lob = require('lob')(process.env.REACT_APP_LOB_LIVE_SECRET_KEY) // Lob object
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_LIVE_KEY) // Stripe object
 
 export default function CardCreationContainer() {
