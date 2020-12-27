@@ -10,7 +10,7 @@ export default function AboutContainer() {
 
   return (
     <>
-      <a className="align-self-start" href="/">« Back to postcard creation page</a>
+      <a className="align-self-start" href="/">« Back</a>
 
       <div className="container  d-flex flex-column justify-content-center align-items-center  col-8 offset-2">
         <h2 className="font-weight-bold py-3 ">Tidings</h2>
