@@ -1,6 +1,8 @@
 ### Tidings
 ![Example postcard](src/visuals/example.png)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9be7413e-47e6-4c9a-8456-4caa5965c7c8/deploy-status)](https://app.netlify.com/sites/tidings-app/deploys)
+
 ### What is this?
 [Tidings](https://tidings-app.netlify.app/) lets you send a postcard with an image in 2 minutes.
 
